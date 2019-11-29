@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorTextLayoutGrey">#b1b1b1</color>
+
+    <color name="item_bag_color">#C2DFE3</color>
+
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="colorMainYellow">#ffcc00</color>
+
+    <color name="colorMainRed">#FF4E0B</color>
+
+    <color name="toolbar_color">#11C5BC</color>
+
+    <color name="colorGrey">#626262</color>
+
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorDarkGrey">#3D3c3c</color>
+    <color name="colorLightGrey">#D8D8D8</color>
+
+    <color name="colorLineGrey">#bebebe</color>
+
+    <color name="app_text_color_grey">#A6B1BC</color>
+
+    <color name="custom_dialog">#99000000</color>
+
+    <color name="alertdialog_header_color">#f3f3f5</color>
+
+    <color name="light_black">#4E4F55</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="header_color">#6DB5CB</color>
+
+    <color name="bag_color">#D4D8DC</color>
+</resources>

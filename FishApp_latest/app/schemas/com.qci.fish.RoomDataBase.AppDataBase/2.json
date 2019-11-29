@@ -1,0 +1,204 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "926085f6161ea7a6f5b0ebb0a9eec06d",
+    "entities": [
+      {
+        "tableName": "Samples",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`localSampleId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `unique_id` INTEGER NOT NULL, `Sample_Id` TEXT, `Location_Name` TEXT, `Sample_collection_Time` TEXT, `Consignee_name` TEXT, `Consignee_number` TEXT, `Truck_number` TEXT, `Truck_driver_name` TEXT, `Truck_driver_mobile_number` TEXT, `fda_licence_number` TEXT, `Remote_image_path1` TEXT, `Remote_image_path2` TEXT, `Remote_image_path3` TEXT, `Local_image_path1` TEXT, `Local_image_path2` TEXT, `Local_image_path3` TEXT, `Sample_result` TEXT, `Sample_available` TEXT, `Scanned_qrcode` TEXT, `Latitude` TEXT, `Longitude` TEXT, `fishtypes` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "localSampleId",
+            "columnName": "localSampleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unique_id",
+            "columnName": "unique_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sampleid",
+            "columnName": "Sample_Id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationname",
+            "columnName": "Location_Name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "samplecollectiondate_str",
+            "columnName": "Sample_collection_Time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "consigneename",
+            "columnName": "Consignee_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "consignmentno",
+            "columnName": "Consignee_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "truckno",
+            "columnName": "Truck_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "truckdrivername",
+            "columnName": "Truck_driver_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "truckdrivermobile",
+            "columnName": "Truck_driver_mobile_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fssai_fda_licenceno",
+            "columnName": "fda_licence_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pic1",
+            "columnName": "Remote_image_path1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pic2",
+            "columnName": "Remote_image_path2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pic3",
+            "columnName": "Remote_image_path3",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "local_image_path1",
+            "columnName": "Local_image_path1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "local_image_path2",
+            "columnName": "Local_image_path2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "local_image_path3",
+            "columnName": "Local_image_path3",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "result",
+            "columnName": "Sample_result",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sample_available",
+            "columnName": "Sample_available",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "scanned_qrcode",
+            "columnName": "Scanned_qrcode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "Latitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "Longitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fishtypes",
+            "columnName": "fishtypes",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "localSampleId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "sample_image",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `localSampleId` INTEGER NOT NULL, `localFilePath` TEXT, `remoteFileName` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "localSampleId",
+            "columnName": "localSampleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "localFilePath",
+            "columnName": "localFilePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remoteFileName",
+            "columnName": "remoteFileName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '926085f6161ea7a6f5b0ebb0a9eec06d')"
+    ]
+  }
+}

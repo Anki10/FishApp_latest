@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/constraintLayout_fragmnet">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:text="Location Name"/>
+
+        <Spinner android:id="@+id/sp_location_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bag"
+            android:textColor="@color/colorDarkGrey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="Sample Id"/>
+
+    <EditText
+        android:id="@+id/ed_sample_id"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        android:imeOptions="actionNext"
+        android:textSize="14sp"
+        android:maxLength="5"
+        android:singleLine="true"
+        android:background="@drawable/edit_text_bag"
+        android:textColor="@color/colorDarkGrey" />
+
+        <EditText
+            android:id="@+id/ed_sample_id_text"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:inputType="number"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textColor="@color/colorDarkGrey" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="Date of sample collection"/>
+
+        <EditText
+            android:id="@+id/ed_sample_time"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:focusable="false"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"
+            android:background="@drawable/edit_text_bag"
+            android:textColor="@color/colorDarkGrey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_marginTop="10dp"
+            android:text="Is sample available ?"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radio_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Yes" />
+
+            <RadioButton
+                android:id="@+id/radio_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textSize="14sp"
+                android:text="No" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="Vehicle Number"/>
+
+        <EditText
+            android:id="@+id/ed_truck_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:background="@drawable/edit_text_bag"
+            android:textColor="@color/colorDarkGrey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="Vehicle Driver Name"/>
+
+        <EditText
+            android:id="@+id/ed_truck_driver_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:paddingLeft="5dp"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:textColor="@color/colorDarkGrey"
+            android:background="@drawable/edit_text_bag"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:text="Vehicle Driver Mobile Number"/>
+
+        <EditText
+            android:id="@+id/ed_truck_driver_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"
+            android:background="@drawable/edit_text_bag"
+            android:textColor="@color/colorDarkGrey" />
+
+        <LinearLayout android:id="@+id/ll_fish_avaiblty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:text="Consignee Name"/>
+
+        <EditText
+            android:id="@+id/ed_consignee_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:inputType="text"
+            android:textSize="14sp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/edit_text_bag"
+            android:textColor="@color/colorDarkGrey" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:text="Consignment Number"/>
+
+            <EditText
+            android:id="@+id/ed_consignee_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/colorDarkGrey"
+            android:background="@drawable/edit_text_bag"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:text="FSSAI/FDA licence number"/>
+
+        <EditText
+            android:id="@+id/ed_licence_number"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"
+            android:background="@drawable/edit_text_bag"
+            android:textColor="@color/colorDarkGrey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:text="Select fish type"/>
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/location_fish_type"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bag"
+            android:layout_marginBottom="5dp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_fishtype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/sample_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/curve_yellow_button"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:text="Next"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

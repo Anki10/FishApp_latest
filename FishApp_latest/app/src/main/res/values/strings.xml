@@ -1,0 +1,97 @@
+<resources>
+    <string name="app_name">Fish App</string>
+    <string name="tab_one">Stage 1</string>
+    <string name="tab_two">Stage 2</string>
+    <string name="tab_three">Stage 3</string>
+    <string name="tab_four">Stage 4</string>
+
+    <string name="key_list_click">1</string>
+    <string name="key_delete_click">2</string>
+    <string name="key_sync_click">3</string>
+
+    <string-array name="location_name">
+        <item>Select Location</item>
+        <item>Pollem</item>
+        <item>Patradevi</item>
+        <item>Madagaon</item>
+    </string-array>
+
+
+    <string-array name="fish_type">
+        <item>Select Fish type!!</item>
+        <item>CHILLOPI</item>
+        <item>TARLE</item>
+        <item>PRAWNS/SHRIMPS</item>
+        <item>BANGDA/AAYLA/INDIAN MACKERAL</item>
+        <item>NETHTHAL</item>
+        <item>TUNA/CHURA</item>
+        <item>SORALA</item>
+        <item>PEDI/PEDWA</item>
+        <item>NATHALI</item>
+        <item>SHELL FISH</item>
+        <item>GOLAI</item>
+        <item>MATTI</item>
+        <item>WHITE PRAWNS</item>
+        <item>MATTI</item>
+        <item>ROOPCHAND</item>
+        <item>BOOTHAI</item>
+        <item>SCABAS</item>
+        <item>MACKERAL</item>
+        <item>CHANAK</item>
+        <item>CHEMEEN</item>
+        <item>MUTHYALI</item>
+        <item>RED BAK</item>
+        <item>KING FISH</item>
+        <item>SHEWTE/MULLET</item>
+        <item>SHETUK</item>
+        <item>TKALUNDAR/ PEARL SPOT</item>
+        <item>MORI</item>
+        <item>SQUID/MANKE</item>
+        <item>POMPLET/POMFRET(BLACK)</item>
+        <item>POMPLET/POMFRET(WHITE)</item>
+        <item>DHODUK</item>
+        <item>PATCHA</item>
+        <item>NAGLI</item>
+        <item>SILVER FISH(BELANJI)</item>
+        <item>MODSO</item>
+        <item>TARLE</item>
+        <item>KURLI</item>
+        <item>BOMBIL</item>
+        <item>CAT FISH/SANGOT</item>
+        <item>SOLE FISH/LEP</item>
+        <item>WAGHOLE/RAY FISH</item>
+        <item>MUDOSHI</item>
+        <item>SURMAI</item>
+        <item>BILJA/VERLE</item>
+        <item>PASA</item>
+        <item>TAMOSHI/RED SNAPPER</item>
+        <item>LEP/SOLE FISH</item>
+        <item>RIBBON FISH/BALE</item>
+        <item>BIJLI</item>
+        <item>PGALMA</item>
+        <item>PATSALI</item>
+        <item>KHOLA</item>
+        <item>GUBERU</item>
+        <item>SOLAR</item>
+        <item>PATOSHI</item>
+        <item>VERLY</item>
+        <item>KHAPI</item>
+        <item>SUNGTA</item>
+        <item>BINAMI</item>
+        <item>LADY FISH</item>
+        <item>VINAMI</item>
+        <item>KOLIM</item>
+        <item>PAULAN</item>
+        <item>SHARK</item>
+        <item>MEAD</item>
+        <item>HORSE MACKERAL/BANGDO</item>
+        <item>DAYNA</item>
+        <item>GOBRA</item>
+        <item>DHOMA</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
