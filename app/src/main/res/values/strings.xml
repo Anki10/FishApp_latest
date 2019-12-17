@@ -44,7 +44,7 @@
         <item>KING FISH</item>
         <item>SHEWTE/MULLET</item>
         <item>SHETUK</item>
-        <item>TKALUNDAR/ PEARL SPOT</item>
+        <item>Kalundar/ PEARL SPOT</item>
         <item>MORI</item>
         <item>SQUID/MANKE</item>
         <item>POMPLET/POMFRET(BLACK)</item>
@@ -88,6 +88,11 @@
         <item>DAYNA</item>
         <item>GOBRA</item>
         <item>DHOMA</item>
+        <item>Vam</item>
+        <item>Bat</item>
+        <item>Karli</item>
+        <item>Other</item>
+
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

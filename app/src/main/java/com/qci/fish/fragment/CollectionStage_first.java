@@ -40,6 +40,7 @@ import com.qci.fish.adapter.FishTypeAdapter;
 import com.qci.fish.adapter.SampleAdapter;
 import com.qci.fish.adapter.onItemFishClickListner;
 import com.qci.fish.pojo.ImageCapturePojo;
+import com.qci.fish.pojo.ResultCapturePojo;
 import com.qci.fish.util.FormatConversionHelper;
 import com.qci.fish.viewModel.SampleListViewModel;
 import com.qci.fish.viewModel.SampleModel;
@@ -143,6 +144,8 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
     public ArrayList<ImageCapturePojo>imageCapture_list;
 
+    private ArrayList<ResultCapturePojo>result_list;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -156,6 +159,7 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         tv_count = (TextView) view.findViewById(R.id.tv_count);
 
         imageCapture_list = new ArrayList<>();
+        result_list = new ArrayList<>();
         fishtype_list = new ArrayList<>();
 
         recycler_fishtype.setHasFixedSize(true);
@@ -330,6 +334,8 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
 
         sampleEntityView.setFishtypes(fishtype_list);
+        sampleEntityView.setFishtype_results(result_list);
+        sampleEntityView.setFishtype_pics(imageCapture_list);
 
         if (local_id != null){
             sampleListViewModel.UpdateSample(sampleEntityView);
@@ -438,9 +444,13 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                    }else {
                        text = value;
                    }
-                   Fish_Dialog(value);
-               }
 
+                   if (!value.equalsIgnoreCase("Other")){
+                       Fish_Dialog(value);
+                   }else {
+                       Add_FishDialog();
+                   }
+               }
                try {
                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.colorDarkGrey));
                }catch (Exception e){
@@ -535,6 +545,18 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                 adapter.notifyDataSetChanged();
             }
         }
+
+        if (sampleEntity.getFishtype_results() != null){
+            if (sampleEntity.getFishtype_results().size() > 0){
+                result_list.addAll(sampleEntity.getFishtype_results());
+            }
+        }
+
+        if (sampleEntity.getFishtype_pics() != null){
+            if (sampleEntity.getFishtype_pics().size() > 0){
+                imageCapture_list.addAll(sampleEntity.getFishtype_pics());
+            }
+        }
     }
 
     private void Fish_Dialog(String fish_name){
@@ -566,15 +588,78 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                     SampleFishTypeList pojo = new SampleFishTypeList();
                     pojo.setFishtype(fish_name);
                     pojo.setQty(Integer.parseInt(text_dialog_quantity.getText().toString()));
-
-
                     fishtype_list.add(pojo);
+
+                    ImageCapturePojo image_pojo = new ImageCapturePojo();
+                    image_pojo.setFishtype(fish_name);
+
+                    imageCapture_list.add(image_pojo);
+
+                    ResultCapturePojo result_pojo = new ResultCapturePojo();
+                    result_pojo.setFishtype(fish_name);
+
+                    result_list.add(result_pojo);
 
                     adapter.notifyDataSetChanged();
 
                     DialogLogOut.cancel();
                 }else {
                     Toast.makeText(getActivity(),"Please add quantity",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+
+        DialogLogOut.show();
+
+    }
+
+    private void Add_FishDialog(){
+        final Dialog DialogLogOut = new Dialog(getActivity(), android.R.style.Theme_Translucent_NoTitleBar);
+        DialogLogOut.setContentView(R.layout.add_fish_dialog);
+
+        EditText dialog_name = (EditText) DialogLogOut.findViewById(R.id.dialog_name);
+        EditText dialog_quantity = (EditText) DialogLogOut.findViewById(R.id.dialog_quantity);
+
+        Button fish_type_submit = (Button) DialogLogOut.findViewById(R.id.btn_yes_exit);
+
+        ImageView dialog_header_cross = (ImageView) DialogLogOut.findViewById(R.id.dialog_header_cross);
+
+        dialog_header_cross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogLogOut.cancel();
+            }
+        });
+
+
+        fish_type_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (dialog_name.getText().toString().length() > 0 && dialog_quantity.getText().toString().length() > 0){
+                    SampleFishTypeList pojo = new SampleFishTypeList();
+                    pojo.setFishtype(dialog_name.getText().toString());
+                    pojo.setQty(Integer.parseInt(dialog_quantity.getText().toString()));
+
+                    fishtype_list.add(pojo);
+
+                    ImageCapturePojo image_pojo = new ImageCapturePojo();
+                    image_pojo.setFishtype(dialog_name.getText().toString());
+
+                    imageCapture_list.add(image_pojo);
+
+                    ResultCapturePojo result_pojo = new ResultCapturePojo();
+                    result_pojo.setFishtype(dialog_name.getText().toString());
+
+                    result_list.add(result_pojo);
+
+                    adapter.notifyDataSetChanged();
+
+                    DialogLogOut.cancel();
+                }else {
+                    Toast.makeText(getActivity(),"Please add details",Toast.LENGTH_LONG).show();
                 }
 
             }

@@ -49,42 +49,52 @@
 
         </LinearLayout>
 
-        <TextView android:id="@+id/tv_fish_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            android:layout_gravity="center"/>
 
         <EditText
-            android:id="@+id/text_dialog_quantity"
+            android:id="@+id/dialog_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="@dimen/custom_header_text_padding"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="@dimen/custom_header_text_padding"
             android:layout_weight="1"
-            android:gravity="center"
             android:paddingLeft="10dp"
-            android:inputType="number"
+            android:hint="Fish Name"
+            android:layout_marginTop="10dp"
+            android:inputType="text"
+            android:textColorHint="@color/light_black"
             android:paddingRight="10dp"
             android:backgroundTint="@color/alertdialog_header_color"
             android:text=""
             android:textColor="@color/light_black"
-            android:textSize="@dimen/custom_dialog_text" />
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/dialog_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/custom_header_text_padding"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:hint="Fish Quantity"
+            android:paddingLeft="10dp"
+            android:inputType="number"
+            android:textColorHint="@color/light_black"
+            android:paddingRight="10dp"
+            android:backgroundTint="@color/alertdialog_header_color"
+            android:text=""
+            android:textColor="@color/light_black"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:id="@+id/custom_dialog_bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/transparent"

@@ -54,8 +54,12 @@ public class ResultCaptureAdapter extends RecyclerView.Adapter<ResultCaptureAdap
                 holder.radio_Positive.setChecked(true);
             }else if (result_list.get(position).getResult().equalsIgnoreCase("Send_back")){
                 holder.radio_Send_back.setChecked(true);
-            }else if (result_list.get(position).getResult().equalsIgnoreCase("Exempted_Trucks")){
-                holder.radio_Exempted_Trucks.setChecked(true);
+            }else if (result_list.get(position).getResult().equalsIgnoreCase("Export")){
+                holder.radio_Export.setChecked(true);
+            }else if (result_list.get(position).getResult().equalsIgnoreCase("Other States")){
+                holder.radio_Other_States.setChecked(true);
+            }else if (result_list.get(position).getResult().equalsIgnoreCase("Exempted fish type")){
+                holder.radio_Exempted_fish_type.setChecked(true);
             }
         }
 
@@ -80,10 +84,24 @@ public class ResultCaptureAdapter extends RecyclerView.Adapter<ResultCaptureAdap
             }
         });
 
-        holder.radio_Exempted_Trucks.setOnClickListener(new View.OnClickListener() {
+        holder.radio_Export.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onItemResultClickListner.onItemResultClicked(4,position,view);
+            }
+        });
+
+        holder.radio_Other_States.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemResultClickListner.onItemResultClicked(5,position,view);
+            }
+        });
+
+        holder.radio_Exempted_fish_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemResultClickListner.onItemResultClicked(6,position,view);
             }
         });
 
@@ -105,8 +123,14 @@ public class ResultCaptureAdapter extends RecyclerView.Adapter<ResultCaptureAdap
         @BindView(R.id.radio_Send_back)
         RadioButton radio_Send_back;
 
-        @BindView(R.id.radio_Exempted_Trucks)
-        RadioButton radio_Exempted_Trucks;
+        @BindView(R.id.radio_Export)
+        RadioButton radio_Export;
+
+        @BindView(R.id.radio_Other_States)
+        RadioButton radio_Other_States;
+
+        @BindView(R.id.radio_Exempted_fish_type)
+        RadioButton radio_Exempted_fish_type;
 
         @BindView(R.id.tv_capture_fish_name)
         TextView tv_capture_fish_name;

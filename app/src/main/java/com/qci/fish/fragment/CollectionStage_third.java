@@ -98,7 +98,17 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
 
         click_type = getArguments().getString("click_type");
 
-        if (click_type.equalsIgnoreCase("first")){
+        pd = AppDialog.showLoading(getActivity());
+        pd.setCanceledOnTouchOutside(false);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getMainList();
+            }
+        }, 2000);
+
+      /*  if (click_type.equalsIgnoreCase("first")){
             pd = AppDialog.showLoading(getActivity());
             pd.setCanceledOnTouchOutside(false);
             final Handler handler = new Handler();
@@ -110,7 +120,7 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
             }, 2000);
         }else {
             SampleGetData(local_id);
-        }
+        }*/
 
         tv_title.setText("Capture Result");
         tv_count.setText("3/4 >");
@@ -166,6 +176,7 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
                     adapter = new ResultCaptureAdapter(getActivity(),result_list);
                     adapter.setOnItemResultClickListner(CollectionStage_third.this::onItemResultClicked);
                     recycler_result_capture.setAdapter(adapter);
+
                 }
             }
         });
@@ -211,7 +222,31 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
             boolean checked = ((RadioButton) view).isChecked();
 
             if (checked){
-                staus_result = "Exempted_Trucks";
+                staus_result = "Export";
+
+                ResultCapturePojo capturePojo = result_list.get(pos);
+                capturePojo.setResult(staus_result);
+
+                result_list.set(pos,capturePojo);
+            }
+        }
+        else if (from == 5){
+            boolean checked = ((RadioButton) view).isChecked();
+
+            if (checked){
+                staus_result = "Other States";
+
+                ResultCapturePojo capturePojo = result_list.get(pos);
+                capturePojo.setResult(staus_result);
+
+                result_list.set(pos,capturePojo);
+            }
+        }
+        else if (from == 6){
+            boolean checked = ((RadioButton) view).isChecked();
+
+            if (checked){
+                staus_result = "Exempted fish type";
 
                 ResultCapturePojo capturePojo = result_list.get(pos);
                 capturePojo.setResult(staus_result);
@@ -234,15 +269,17 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
                 sampleEntityView = sample_list.get(0);
                 local_sample_id = sampleEntityView.getLocalSampleId();
 
+                result_list = sampleEntityView.getFishtype_results();
 
-                for (int i=0;i<sampleEntityView.getFishtypes().size();i++){
+
+              /*  for (int i=0;i<sampleEntityView.getFishtype_results().size();i++){
 
                     ResultCapturePojo result_pojo = new ResultCapturePojo();
                     result_pojo.setFishtype(sampleEntityView.getFishtypes().get(i).getFishtype());
 
                     result_list.add(result_pojo);
 
-                }
+                }*/
 
                 pd.cancel();
                 adapter = new ResultCaptureAdapter(getActivity(),result_list);

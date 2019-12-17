@@ -87,7 +87,6 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
     private Uri picUri;
     private File imageF;
 
-
     private String imagepath_1, imagepath_2, imagepath_3;
 
     @BindView(R.id.btn_Image_submit)
@@ -144,8 +143,18 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
 
         click_type = getArguments().getString("click_type");
 
+        pd = AppDialog.showLoading(getActivity());
+        pd.setCanceledOnTouchOutside(false);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getMainList();
+            }
+        }, 2000);
 
-        if (click_type.equalsIgnoreCase("first")) {
+
+      /*  if (click_type.equalsIgnoreCase("first")) {
             pd = AppDialog.showLoading(getActivity());
             pd.setCanceledOnTouchOutside(false);
             final Handler handler = new Handler();
@@ -158,7 +167,7 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
         } else {
             SampleGetData(local_id);
         }
-
+*/
 
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         tv_count = (TextView) view.findViewById(R.id.tv_count);
@@ -408,14 +417,16 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
                 sampleEntityView = sample_list.get(0);
                 local_sample_id = sampleEntityView.getLocalSampleId();
 
-                for (int i = 0; i < sampleEntityView.getFishtypes().size(); i++) {
+                imageCapture_list = sampleEntityView.getFishtype_pics();
+
+             /*   for (int i = 0; i < sampleEntityView.getFishtypes().size(); i++) {
 
                     ImageCapturePojo image_pojo = new ImageCapturePojo();
                     image_pojo.setFishtype(sampleEntityView.getFishtypes().get(i).getFishtype());
 
                     imageCapture_list.add(image_pojo);
 
-                }
+                }*/
 
                 pd.cancel();
 
