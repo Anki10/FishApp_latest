@@ -44,6 +44,7 @@ import com.qci.fish.R;
 import com.qci.fish.RoomDataBase.sample.SampleEntity;
 import com.qci.fish.RoomDataBase.sample.SampleFishTypeList;
 import com.qci.fish.RoomDataBase.sampleImage.SampleImageEntity;
+import com.qci.fish.activity.LoginActivity;
 import com.qci.fish.activity.SampleListActivity;
 import com.qci.fish.adapter.FishTypeAdapter;
 import com.qci.fish.adapter.ImageCaptureAdapter;
@@ -387,20 +388,27 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
     @Override
     public void onItemImageClicked(int from, int pos) {
         list_pos = pos;
-        if (from == 1) {
-            captureImage(1);
-        } else if (from == 2) {
-            if (imageCapture_list.get(list_pos).getLocal_image_path1() != null) {
-                captureImage(2);
-            } else {
-                Toast.makeText(getActivity(), "Please Capture first image before capture second image ", Toast.LENGTH_LONG).show();
+
+        isInternetPresent = cd.isConnectingToInternet();
+
+        if (isInternetPresent){
+            if (from == 1) {
+                captureImage(1);
+            } else if (from == 2) {
+                if (imageCapture_list.get(list_pos).getLocal_image_path1() != null) {
+                    captureImage(2);
+                } else {
+                    Toast.makeText(getActivity(), "Please Capture first image before capture second image ", Toast.LENGTH_LONG).show();
+                }
+            } else if (from == 3) {
+                if (imageCapture_list.get(list_pos).getLocal_image_path1() != null && imageCapture_list.get(list_pos).getLocal_image_path2() != null) {
+                    captureImage(3);
+                } else {
+                    Toast.makeText(getActivity(), "Please Capture first and second image before capture third image ", Toast.LENGTH_LONG).show();
+                }
             }
-        } else if (from == 3) {
-            if (imageCapture_list.get(list_pos).getLocal_image_path1() != null && imageCapture_list.get(list_pos).getLocal_image_path2() != null) {
-                captureImage(3);
-            } else {
-                Toast.makeText(getActivity(), "Please Capture first and second image before capture third image ", Toast.LENGTH_LONG).show();
-            }
+        }else {
+            Toast.makeText(getActivity(), AppConstants.NO_INTERNET_CONNECTED,Toast.LENGTH_LONG).show();
         }
     }
 

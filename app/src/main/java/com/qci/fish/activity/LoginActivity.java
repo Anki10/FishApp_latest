@@ -57,8 +57,8 @@ public class LoginActivity extends BaseActivity {
 
         mAPIService = ApiUtils.getAPIService();
 
-    /*    email.setText("admin@gmail.com");
-        password.setText("Password1");*/
+        email.setText("admin@gmail.com");
+        password.setText("Password1");
     }
 
 
