@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
@@ -75,6 +76,9 @@ public class CollectionStage_fourth extends BaseFragment implements OnItemQRClic
 
     private ProgressDialog pd;
 
+    @BindView(R.id.iView_back)
+    ImageView iView_back;
+
 
     public CollectionStage_fourth() {
         // Required empty public constructor
@@ -103,6 +107,13 @@ public class CollectionStage_fourth extends BaseFragment implements OnItemQRClic
         sampleListViewModel = ViewModelProviders.of(this).get(SampleListViewModel.class);
 
         QRCode_list = new ArrayList<>();
+
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
 
         // local_id
         local_id = getArguments().getInt("local_id");
@@ -232,4 +243,5 @@ public class CollectionStage_fourth extends BaseFragment implements OnItemQRClic
             adapter.notifyDataSetChanged();
         }
     }
+
 }

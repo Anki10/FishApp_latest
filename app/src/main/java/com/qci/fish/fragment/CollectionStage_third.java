@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -72,6 +73,9 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
 
     private ProgressDialog pd;
 
+    @BindView(R.id.iView_back)
+    ImageView iView_back;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +96,13 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
         sampleListViewModel = ViewModelProviders.of(this).get(SampleListViewModel.class);
 
         result_list = new ArrayList<>();
+
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
 
         // local_id
         local_id = getArguments().getInt("local_id");
@@ -128,9 +139,6 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
         submit_third_stage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                sampleEntityView.setFishtype_results(result_list);
-                sampleListViewModel.UpdateSample(sampleEntityView);
 
                 CollectionStage_fourth stage_fouth = new CollectionStage_fourth();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -292,5 +300,13 @@ public class CollectionStage_third extends BaseFragment implements OnItemResultC
         sampleListViewModel = ViewModelProviders.of(this).get(SampleListViewModel.class);
         sampleListViewModel.samplelist.observe(getActivity(),sampleObserver);
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        sampleEntityView.setFishtype_results(result_list);
+        sampleListViewModel.UpdateSample(sampleEntityView);
     }
 }

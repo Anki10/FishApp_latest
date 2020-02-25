@@ -3,6 +3,8 @@ package com.qci.fish.activity;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.qci.fish.R;
@@ -13,10 +15,21 @@ public class WholeSale_ScanActivity extends BaseActivity implements QRCodeReader
 
     private static QRCodeReaderView qrCodeReaderView;
 
+    @BindView(R.id.iView_back)
+    ImageView iView_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whole_sale);
+
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
         qrCodeReaderView = (QRCodeReaderView) findViewById(R.id.qrdecoderview_wholeSale);
         qrCodeReaderView.setOnQRCodeReadListener(this);

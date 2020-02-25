@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,6 +67,10 @@ public class WholeSaleSampleListActivity extends BaseActivity {
 
     TextView tv_title;
 
+    @BindView(R.id.iView_back)
+    ImageView iView_back;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +81,13 @@ public class WholeSaleSampleListActivity extends BaseActivity {
         tv_title = (TextView) findViewById(R.id.tv_title);
 
         tv_title.setText("View Sample Details");
+
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         cd = new ConnectionDetector(getApplicationContext());

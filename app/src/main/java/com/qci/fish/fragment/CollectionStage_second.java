@@ -96,6 +96,9 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
     @BindView(R.id.recycler_image_capture)
     RecyclerView recycler_image_capture;
 
+    @BindView(R.id.iView_back)
+    ImageView iView_back;
+
     private SampleImageViewModel sampleImageViewModel;
 
     private int local_id;
@@ -134,6 +137,13 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
         cd = new ConnectionDetector(getActivity());
         // get Internet status
         isInternetPresent = cd.isConnectingToInternet();
+
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
 
         mAPIService = ApiUtils.getAPIService();
 
@@ -189,10 +199,6 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_Image_submit:
-
-                sampleEntityView.setFishtype_pics(imageCapture_list);
-
-                sampleListViewModel.UpdateSample(sampleEntityView);
 
                 CollectionStage_third stage_third = new CollectionStage_third();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -448,5 +454,13 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
         sampleListViewModel = ViewModelProviders.of(this).get(SampleListViewModel.class);
         sampleListViewModel.samplelist.observe(getActivity(), sampleObserver);
 
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        sampleEntityView.setFishtype_pics(imageCapture_list);
+
+        sampleListViewModel.UpdateSample(sampleEntityView);
     }
 }

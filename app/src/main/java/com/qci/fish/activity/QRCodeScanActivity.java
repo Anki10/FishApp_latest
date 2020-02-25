@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.qci.fish.R;
+
+import butterknife.BindView;
 
 public class QRCodeScanActivity extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
 
@@ -16,11 +20,21 @@ public class QRCodeScanActivity extends AppCompatActivity implements QRCodeReade
 
     private String qr_code;
 
+    @BindView(R.id.iView_back)
+    ImageView iView_back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_scan);
+
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         qrCodeReaderView = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
         qrCodeReaderView.setOnQRCodeReadListener(this);

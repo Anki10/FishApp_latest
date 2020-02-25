@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,9 @@ public class SampleListActivity extends BaseActivity implements View.OnClickList
 
     private APIService mAPIService;
 
+    @BindView(R.id.iView_back)
+    ImageView iView_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,13 @@ public class SampleListActivity extends BaseActivity implements View.OnClickList
         cd = new ConnectionDetector(getApplicationContext());
         // get Internet status
         isInternetPresent = cd.isConnectingToInternet();
+
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         mAPIService = ApiUtils.getAPIService();
 

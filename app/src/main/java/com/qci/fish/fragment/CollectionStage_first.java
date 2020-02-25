@@ -86,17 +86,12 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
     @BindView(R.id.location_fish_type)
     Spinner location_fish_type;
 
+    @BindView(R.id.vehicle_type_spineer)
+    Spinner vehicle_type_spineer;
+
     @BindView(R.id.sample_submit)
     Button sample_submit;
 
-    @BindView(R.id.radio_group)
-    RadioGroup radio_group;
-
-     @BindView(R.id.radio_yes)
-    RadioButton radio_yes;
-
-     @BindView(R.id.radio_no)
-     RadioButton radio_no;
 
      @BindView(R.id.ll_fish_avaiblty)
     LinearLayout ll_fish_avaiblty;
@@ -106,6 +101,9 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
      @BindView(R.id.recycler_fishtype)
     RecyclerView recycler_fishtype;
+
+     @BindView(R.id.iView_back)
+     ImageView iView_back;
 
      private ArrayList<SampleFishTypeList>fishtype_list;
 
@@ -155,6 +153,13 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
         ButterKnife.bind(this, view);
 
+        iView_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         tv_count = (TextView) view.findViewById(R.id.tv_count);
 
@@ -194,6 +199,40 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         sp_location_name.setSelection(0,true);
         sp_location_name.setOnItemSelectedListener(this);
 
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getActivity(),
+                R.array.Vehicle_Type, android.R.layout.simple_spinner_item);
+        // Specify layout to be used when list of choices appears
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        vehicle_type_spineer.setAdapter(adapter1);
+
+        vehicle_type_spineer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 1){
+                    ll_fish_avaiblty.setVisibility(View.VISIBLE);
+                    radio_status = "Domestic consumption";
+                }else if (i == 2){
+                    ll_fish_avaiblty.setVisibility(View.GONE);
+                    radio_status = "Export";
+                }else if (i == 3){
+                    ll_fish_avaiblty.setVisibility(View.GONE);
+                    radio_status = "Exempted fish type";
+                }else if (i == 4){
+                    ll_fish_avaiblty.setVisibility(View.GONE);
+                    radio_status = "Empty";
+                }else if (i == 5){
+                    ll_fish_avaiblty.setVisibility(View.GONE);
+                    radio_status = "Send Back";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.fish_type, android.R.layout.simple_spinner_item);
         // Specify layout to be used when list of choices appears
@@ -213,7 +252,19 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
             public void onClick(View view) {
 
                 if (validateCheck(radio_status)){
-                     saveSample();
+                    if (radio_status.equalsIgnoreCase("No")){
+                        getActivity().finish();
+                    }else {
+                        CollectionStage_second stage_second = new CollectionStage_second();
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("local_id",sample_id);
+                        bundle.putString("click_type",click_type);
+                        stage_second.setArguments(bundle);
+                        ft.replace(R.id.frame_layout,stage_second,"newFragment");
+                        ft.addToBackStack("my_fragment");
+                        ft.commit();
+                    }
                 }
             }
         });
@@ -237,37 +288,6 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
             }
         });
 
-        radio_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean checked = ((RadioButton) v).isChecked();
-                // Check which radiobutton was pressed
-                if (checked){
-                    radio_status = "Yes";
-
-                    ll_fish_avaiblty.setVisibility(View.VISIBLE);
-                }
-                else{
-                    // Do your coding
-                }
-            }
-        });
-
-        radio_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean checked = ((RadioButton) v).isChecked();
-                // Check which radiobutton was pressed
-                if (checked){
-                    radio_status = "No";
-
-                    ll_fish_avaiblty.setVisibility(View.GONE);
-                }
-                else{
-                    // Do your coding
-                }
-            }
-        });
 
         ed_sample_id.addTextChangedListener(new TextWatcher() {
             @Override
@@ -343,19 +363,6 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
             sampleListViewModel.addSample(sampleEntityView,1);
         }
 
-        if (radio_status.equalsIgnoreCase("No")){
-            getActivity().finish();
-        }else {
-            CollectionStage_second stage_second = new CollectionStage_second();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            Bundle bundle = new Bundle();
-            bundle.putInt("local_id",sample_id);
-            bundle.putString("click_type",click_type);
-            stage_second.setArguments(bundle);
-            ft.replace(R.id.frame_layout,stage_second,"newFragment");
-            ft.addToBackStack("my_fragment");
-            ft.commit();
-        }
     }
 
     private boolean validateCheck(String status){
@@ -507,16 +514,24 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         }
         if (sampleEntity.getSample_available() != null){
             radio_status = sampleEntity.getSample_available();
-           if (sampleEntity.getSample_available().equalsIgnoreCase("Yes")){
-               radio_yes.setChecked(true);
-
+           if (sampleEntity.getSample_available().equalsIgnoreCase("Domestic consumption")){
                ll_fish_avaiblty.setVisibility(View.VISIBLE);
-           }else {
-               radio_no.setChecked(true);
-
+               vehicle_type_spineer.setSelection(1);
+           } else if (sampleEntity.getSample_available().equalsIgnoreCase("Export")){
                ll_fish_avaiblty.setVisibility(View.GONE);
+               vehicle_type_spineer.setSelection(2);
+           }else if (sampleEntity.getSample_available().equalsIgnoreCase("Exempted fish type")){
+               ll_fish_avaiblty.setVisibility(View.GONE);
+               vehicle_type_spineer.setSelection(3);
+           }else if (sampleEntity.getSample_available().equalsIgnoreCase("Empty")){
+               ll_fish_avaiblty.setVisibility(View.GONE);
+               vehicle_type_spineer.setSelection(4);
+           }else if (sampleEntity.getSample_available().equalsIgnoreCase("Send Back")){
+               ll_fish_avaiblty.setVisibility(View.GONE);
+               vehicle_type_spineer.setSelection(5);
            }
         }
+
 
 
         if (sampleEntity.getTruckno() != null){
@@ -676,5 +691,12 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         fishtype_list.remove(pos);
 
         adapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        saveSample();
     }
 }

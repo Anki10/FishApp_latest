@@ -16,6 +16,15 @@
         <item>Madagaon</item>
     </string-array>
 
+    <string-array name="Vehicle_Type">
+        <item>Select Vehicle type!!</item>
+        <item>Domestic consumption</item>
+        <item>Export</item>
+        <item>Exempted fish type</item>
+        <item>Empty</item>
+        <item>Send Back</item>
+
+    </string-array>
 
     <string-array name="fish_type">
         <item>Select Fish type!!</item>
