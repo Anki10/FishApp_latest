@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "159afc6acf8f4d9562d0592fba698699",
+    "identityHash": "37ab4307ce521605d1aab2bfa3bf8140",
     "entities": [
       {
         "tableName": "Samples",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`localSampleId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `unique_id` INTEGER NOT NULL, `Sample_Id` TEXT, `sample_number` TEXT, `Location_Name` TEXT, `Sample_collection_Time` TEXT, `Consignee_name` TEXT, `Consignee_number` TEXT, `Truck_number` TEXT, `Truck_driver_name` TEXT, `Truck_driver_mobile_number` TEXT, `fda_licence_number` TEXT, `Sample_available` TEXT, `Latitude` TEXT, `Longitude` TEXT, `fishtypes` TEXT, `fishtype_pics` TEXT, `fishtype_results` TEXT, `fishtype_qrcode` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`localSampleId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `unique_id` INTEGER NOT NULL, `Sample_Id` TEXT, `sample_number` TEXT, `Location_Name` TEXT, `Sample_collection_Time` TEXT, `Consignee_name` TEXT, `Consignee_number` TEXT, `Truck_number` TEXT, `Truck_driver_name` TEXT, `Truck_driver_mobile_number` TEXT, `fda_licence_number` TEXT, `Sample_available` TEXT, `Latitude` TEXT, `Longitude` TEXT, `vehicletype` TEXT, `fishtypes` TEXT, `fishtype_pics` TEXT, `fishtype_results` TEXT, `fishtype_qrcode` TEXT)",
         "fields": [
           {
             "fieldPath": "localSampleId",
@@ -99,6 +99,12 @@
             "notNull": false
           },
           {
+            "fieldPath": "vehicletype",
+            "columnName": "vehicletype",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "fishtypes",
             "columnName": "fishtypes",
             "affinity": "TEXT",
@@ -174,7 +180,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '159afc6acf8f4d9562d0592fba698699')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '37ab4307ce521605d1aab2bfa3bf8140')"
     ]
   }
 }

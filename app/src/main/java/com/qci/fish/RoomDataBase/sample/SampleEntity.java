@@ -60,6 +60,17 @@ public class SampleEntity {
     @ColumnInfo(name = "Longitude")
     private String longitude;
 
+    @ColumnInfo(name = "vehicletype")
+    private String vehicletype;
+
+    public String getVehicletype() {
+        return vehicletype;
+    }
+
+    public void setVehicletype(String vehicletype) {
+        this.vehicletype = vehicletype;
+    }
+
     private ArrayList<SampleFishTypeList> fishtypes;
 
     private ArrayList<ImageCapturePojo> fishtype_pics;

@@ -3,6 +3,7 @@ package com.qci.fish.fragment;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +32,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.qci.fish.BuildConfig;
 import com.qci.fish.R;
 import com.qci.fish.RoomDataBase.sample.SampleEntity;
 import com.qci.fish.RoomDataBase.sample.SampleFishTypeList;
@@ -39,8 +41,11 @@ import com.qci.fish.activity.SampleListActivity;
 import com.qci.fish.adapter.FishTypeAdapter;
 import com.qci.fish.adapter.SampleAdapter;
 import com.qci.fish.adapter.onItemFishClickListner;
+import com.qci.fish.api.APIService;
+import com.qci.fish.api.ApiUtils;
 import com.qci.fish.pojo.ImageCapturePojo;
 import com.qci.fish.pojo.ResultCapturePojo;
+import com.qci.fish.util.AppConstants;
 import com.qci.fish.util.FormatConversionHelper;
 import com.qci.fish.viewModel.SampleListViewModel;
 import com.qci.fish.viewModel.SampleModel;
@@ -53,6 +58,9 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CollectionStage_first extends Fragment implements AdapterView.OnItemSelectedListener, onItemFishClickListner {
 
@@ -144,6 +152,8 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
     private ArrayList<ResultCapturePojo>result_list;
 
+    private APIService mAPIService;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,12 +163,17 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
         ButterKnife.bind(this, view);
 
+
+
         iView_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
             }
         });
+
+        mAPIService = ApiUtils.getAPIService();
+
 
         tv_title = (TextView) view.findViewById(R.id.tv_title);
         tv_count = (TextView) view.findViewById(R.id.tv_count);
@@ -344,7 +359,7 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         sampleEntityView.setSampleid(ed_sample_id_text.getText().toString());
         sampleEntityView.setSample_number(ed_sample_id.getText().toString());
         sampleEntityView.setSamplecollectiondate_str(ed_sample_time.getText().toString());
-        sampleEntityView.setSample_available(radio_status);
+        sampleEntityView.setVehicletype(radio_status);
         sampleEntityView.setTruckno(ed_truck_number.getText().toString());
         sampleEntityView.setTruckdrivername(ed_truck_driver_name.getText().toString());
         sampleEntityView.setTruckdrivermobile(ed_truck_driver_number.getText().toString());
@@ -371,9 +386,9 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
             if (ab_location.length() == 0){
                 Toast.makeText(getActivity(),"Please enter location name",Toast.LENGTH_LONG).show();
             }
-            else if (ed_sample_id.getText().toString().length() == 0){
+          /*  else if (ed_sample_id.getText().toString().length() == 0){
                 Toast.makeText(getActivity(),"Please enter sample Id",Toast.LENGTH_LONG).show();
-            }
+            }*/
             else if (ed_sample_time.getText().toString().length() == 0){
                 Toast.makeText(getActivity(),"Please select date of sample collection",Toast.LENGTH_LONG).show();
             }
@@ -403,9 +418,9 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
             if (ab_location.length() == 0){
                 Toast.makeText(getActivity(),"Please enter location name",Toast.LENGTH_LONG).show();
             }
-            else if (ed_sample_id.getText().toString().length() == 0){
+          /*  else if (ed_sample_id.getText().toString().length() == 0){
                 Toast.makeText(getActivity(),"Please enter sample Id",Toast.LENGTH_LONG).show();
-            }
+            }*/
             else if (ed_sample_time.getText().toString().length() == 0){
                 Toast.makeText(getActivity(),"Please select date of sample collection",Toast.LENGTH_LONG).show();
             }
@@ -512,21 +527,21 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         if (sampleEntity.getSample_number() != null){
             ed_sample_id.setText(sampleEntity.getSample_number());
         }
-        if (sampleEntity.getSample_available() != null){
-            radio_status = sampleEntity.getSample_available();
-           if (sampleEntity.getSample_available().equalsIgnoreCase("Domestic consumption")){
+        if (sampleEntity.getVehicletype() != null){
+            radio_status = sampleEntity.getVehicletype();
+           if (sampleEntity.getVehicletype().equalsIgnoreCase("Domestic consumption")){
                ll_fish_avaiblty.setVisibility(View.VISIBLE);
                vehicle_type_spineer.setSelection(1);
-           } else if (sampleEntity.getSample_available().equalsIgnoreCase("Export")){
+           } else if (sampleEntity.getVehicletype().equalsIgnoreCase("Export")){
                ll_fish_avaiblty.setVisibility(View.GONE);
                vehicle_type_spineer.setSelection(2);
-           }else if (sampleEntity.getSample_available().equalsIgnoreCase("Exempted fish type")){
+           }else if (sampleEntity.getVehicletype().equalsIgnoreCase("Exempted fish type")){
                ll_fish_avaiblty.setVisibility(View.GONE);
                vehicle_type_spineer.setSelection(3);
-           }else if (sampleEntity.getSample_available().equalsIgnoreCase("Empty")){
+           }else if (sampleEntity.getVehicletype().equalsIgnoreCase("Empty")){
                ll_fish_avaiblty.setVisibility(View.GONE);
                vehicle_type_spineer.setSelection(4);
-           }else if (sampleEntity.getSample_available().equalsIgnoreCase("Send Back")){
+           }else if (sampleEntity.getVehicletype().equalsIgnoreCase("Send Back")){
                ll_fish_avaiblty.setVisibility(View.GONE);
                vehicle_type_spineer.setSelection(5);
            }
@@ -699,4 +714,28 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         super.onStop();
         saveSample();
     }
+
+ /*   private void getSampleId(){
+        mAPIService.getSampleId("application/json","Bearer " + getFromPrefs(AppConstants.ACCESS_Token), BuildConfig.BASE_URL+"sampleinfo_app/getsample_sampleid").enqueue(new Callback<SampleEntity>() {
+            @Override
+            public void onResponse(Call<SampleEntity> call, Response<SampleEntity> response) {
+                System.out.println("xxx sucess");
+
+                if (response.body() != null){
+       //             SampleView(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SampleEntity> call, Throwable t) {
+                System.out.println("xxx failed");
+            }
+        });
+    }
+
+    public String getFromPrefs(String key) {
+        SharedPreferences prefs = getActivity().getSharedPreferences(AppConstants.PREF_NAME, getActivity().MODE_PRIVATE);
+        return prefs.getString(key, AppConstants.DEFAULT_VALUE);
+    }*/
+
 }

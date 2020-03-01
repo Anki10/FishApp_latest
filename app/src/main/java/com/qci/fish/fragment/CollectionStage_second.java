@@ -307,12 +307,18 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile);
 
+        final ProgressDialog d = AppDialog.showLoading(getActivity());
+        d.setCanceledOnTouchOutside(false);
+
 
         mAPIService.ImageUploadRequest("Bearer " + getFromPrefs(AppConstants.ACCESS_Token),body).enqueue(new Callback<ImageUploadResponse>() {
             @Override
             public void onResponse(Call<ImageUploadResponse> call, Response<ImageUploadResponse> response) {
+                d.dismiss();
                 if (response.body() != null){
                     if (response.body().getSuccess()){
+
+                        Toast.makeText(getActivity(),"Image uploaded successfully",Toast.LENGTH_LONG).show();
 
                         if (request_code == 1){
                             ImageCapturePojo image_pojo = imageCapture_list.get(list_pos);
@@ -340,12 +346,15 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
                             adapter.notifyDataSetChanged();
                         }
                     }
+                }else {
+                    Toast.makeText(getActivity(),"Image upload failed",Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ImageUploadResponse> call, Throwable t) {
-
+                d.dismiss();
+                Toast.makeText(getActivity(),"Image upload failed",Toast.LENGTH_LONG).show();
             }
         });
 

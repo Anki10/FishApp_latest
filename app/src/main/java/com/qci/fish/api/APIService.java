@@ -35,10 +35,11 @@ public interface APIService {
     @POST("upload/s3")
     Call<ImageUploadResponse>ImageUploadRequest(@Header("Authorization") String Authorization, @Part MultipartBody.Part file);
 
-
     @GET
     Call<SampleEntity> getSampleInfo(@Header("Content-Type") String Content_Type, @Header("Authorization") String Authorization, @Url String url);
 
+    @GET
+    Call<SampleEntity>getSampleId(@Header("Content-Type") String Content_Type, @Header("Authorization") String Authorization, @Url String url);
 
 
 }
