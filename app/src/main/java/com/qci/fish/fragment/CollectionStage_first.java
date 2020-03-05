@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -44,6 +45,7 @@ import com.qci.fish.adapter.onItemFishClickListner;
 import com.qci.fish.api.APIService;
 import com.qci.fish.api.ApiUtils;
 import com.qci.fish.pojo.ImageCapturePojo;
+import com.qci.fish.pojo.QRCodeCapturePojo;
 import com.qci.fish.pojo.ResultCapturePojo;
 import com.qci.fish.util.AppConstants;
 import com.qci.fish.util.FormatConversionHelper;
@@ -115,6 +117,8 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
      private ArrayList<SampleFishTypeList>fishtype_list;
 
+    private ArrayList<QRCodeCapturePojo> fishtype_qrcode;
+
     private RecyclerView.LayoutManager mLayoutManager;
 
     private FishTypeAdapter adapter;
@@ -154,6 +158,23 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
     private APIService mAPIService;
 
+    private boolean oncreate = false;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        sampleEntityView = new SampleEntity();
+
+        oncreate = true;
+
+        HomeActivity activity = (HomeActivity) getActivity();
+        sample_id = activity.getMyData();
+
+        click_type = activity.getClick_event();
+
+        SampleViewData(sample_id);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -181,6 +202,7 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         imageCapture_list = new ArrayList<>();
         result_list = new ArrayList<>();
         fishtype_list = new ArrayList<>();
+        fishtype_qrcode = new ArrayList<>();
 
         recycler_fishtype.setHasFixedSize(true);
 
@@ -195,14 +217,7 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         tv_title.setText("Capture Sample");
         tv_count.setText("1/4 >");
 
-        sampleEntityView = new SampleEntity();
 
-        HomeActivity activity = (HomeActivity) getActivity();
-        sample_id = activity.getMyData();
-
-        click_type = activity.getClick_event();
-
-        SampleViewData(sample_id);
 
         ArrayAdapter<CharSequence> location_adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.location_name, android.R.layout.simple_spinner_item);
@@ -371,6 +386,7 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         sampleEntityView.setFishtypes(fishtype_list);
         sampleEntityView.setFishtype_results(result_list);
         sampleEntityView.setFishtype_pics(imageCapture_list);
+        sampleEntityView.setFishtype_qrcode(fishtype_qrcode);
 
         if (local_id != null){
             sampleListViewModel.UpdateSample(sampleEntityView);
@@ -467,11 +483,15 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                        text = value;
                    }
 
-                   if (!value.equalsIgnoreCase("Other")){
-                       Fish_Dialog(value);
-                   }else {
-                       Add_FishDialog();
+                   if (oncreate){
+                       if (!value.equalsIgnoreCase("Other")){
+                           Fish_Dialog(value);
+                       }else {
+                           Add_FishDialog();
+                       }
                    }
+
+
                }
                try {
                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.colorDarkGrey));
@@ -500,6 +520,11 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
             public void onChanged(SampleEntity sampleEntity) {
                 if (sampleEntity != null){
                     sampleEntityView = sampleEntity;
+                    fishtype_list.clear();
+                    result_list.clear();
+                    imageCapture_list.clear();
+                    fishtype_qrcode.clear();
+
                     viewSet(sampleEntityView);
 
                     local_id = String.valueOf(sampleEntity.getLocalSampleId());
@@ -587,6 +612,12 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                 imageCapture_list.addAll(sampleEntity.getFishtype_pics());
             }
         }
+        if (sampleEntity.getFishtype_qrcode() != null){
+            if (sampleEntity.getFishtype_qrcode().size() > 0){
+                fishtype_qrcode.addAll(sampleEntity.getFishtype_qrcode());
+            }
+        }
+
     }
 
     private void Fish_Dialog(String fish_name){
@@ -629,6 +660,11 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                     result_pojo.setFishtype(fish_name);
 
                     result_list.add(result_pojo);
+
+                    QRCodeCapturePojo qrCodeCapturePojo = new QRCodeCapturePojo();
+                    qrCodeCapturePojo.setFishtype(fish_name);
+
+                    fishtype_qrcode.add(qrCodeCapturePojo);
 
                     adapter.notifyDataSetChanged();
 
@@ -685,6 +721,11 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
                     result_list.add(result_pojo);
 
+                    QRCodeCapturePojo qrCodeCapturePojo = new QRCodeCapturePojo();
+                    qrCodeCapturePojo.setFishtype(dialog_name.getText().toString());
+
+                    fishtype_qrcode.add(qrCodeCapturePojo);
+
                     adapter.notifyDataSetChanged();
 
                     DialogLogOut.cancel();
@@ -704,16 +745,21 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
     public void onItemClicked(int pos) {
 
         fishtype_list.remove(pos);
+        imageCapture_list.remove(pos);
+        result_list.remove(pos);
+        fishtype_qrcode.remove(pos);
 
         adapter.notifyDataSetChanged();
     }
 
-
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
+
         saveSample();
     }
+
+
 
  /*   private void getSampleId(){
         mAPIService.getSampleId("application/json","Bearer " + getFromPrefs(AppConstants.ACCESS_Token), BuildConfig.BASE_URL+"sampleinfo_app/getsample_sampleid").enqueue(new Callback<SampleEntity>() {

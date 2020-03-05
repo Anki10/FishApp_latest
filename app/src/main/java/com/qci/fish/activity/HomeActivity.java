@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        /*if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+      /*  if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
         } else {
 
