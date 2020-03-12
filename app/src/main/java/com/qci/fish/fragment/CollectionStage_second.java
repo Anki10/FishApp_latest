@@ -443,12 +443,9 @@ public class CollectionStage_second extends BaseFragment implements OnItemImageC
                 imageCapture_list = sampleEntityView.getFishtype_pics();
 
              /*   for (int i = 0; i < sampleEntityView.getFishtypes().size(); i++) {
-
                     ImageCapturePojo image_pojo = new ImageCapturePojo();
                     image_pojo.setFishtype(sampleEntityView.getFishtypes().get(i).getFishtype());
-
                     imageCapture_list.add(image_pojo);
-
                 }*/
 
                 pd.cancel();

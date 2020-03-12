@@ -116,7 +116,7 @@ public class SampleListActivity extends BaseActivity implements View.OnClickList
                 intent.putExtra("local_sample_id","00");
                 intent.putExtra("click_type","first");
                 startActivity(intent);
-     //           finish();
+                //           finish();
             }
         });
 
@@ -162,63 +162,63 @@ public class SampleListActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-      switch (view.getId()){
-          case R.id.ll_view:
+        switch (view.getId()){
+            case R.id.ll_view:
 
-              int position = (int) view.getTag(R.string.key_list_click);
+                int position = (int) view.getTag(R.string.key_list_click);
 
-              Intent intent = new Intent(SampleListActivity.this, HomeActivity.class);
-              intent.putExtra("local_sample_id",sample_list.get(position).getLocalSampleId());
-              intent.putExtra("click_type","already");
-              startActivity(intent);
+                Intent intent = new Intent(SampleListActivity.this, HomeActivity.class);
+                intent.putExtra("local_sample_id",sample_list.get(position).getLocalSampleId());
+                intent.putExtra("click_type","already");
+                startActivity(intent);
 
-              break;
+                break;
 
-          case R.id.ivDeleteItem:
+            case R.id.ivDeleteItem:
 
-              int pos = (int) view.getTag(R.string.key_delete_click);
+                int pos = (int) view.getTag(R.string.key_delete_click);
 
-              SampleEntity sampleEntity = new SampleEntity();
+                SampleEntity sampleEntity = new SampleEntity();
 
-              sampleEntity = sample_list.get(pos);
+                sampleEntity = sample_list.get(pos);
 
-              sampleListViewModel.deleteSample(sampleEntity);
+                sampleListViewModel.deleteSample(sampleEntity);
 
-              getList();
+                getList();
 
-              break;
+                break;
 
-          case R.id.ivSyncItem:
+            case R.id.ivSyncItem:
 
-              int pos_sync = (int) view.getTag(R.string.key_sync_click);
+                int pos_sync = (int) view.getTag(R.string.key_sync_click);
 
-              syncSampleData(pos_sync);
+                syncSampleData(pos_sync);
 
-              break;
-      }
+                break;
+        }
     }
 
-    private void syncSampleData(int pos){
+    private void syncSampleData(int pos) {
 
         SampleEntity sampleEntity = sample_list.get(pos);
 
         final ProgressDialog d = AppDialog.showLoading(SampleListActivity.this);
         d.setCanceledOnTouchOutside(false);
 
-        mAPIService.DataSync("application/json","Bearer " + getFromPrefs(AppConstants.ACCESS_Token),sampleEntity).enqueue(new Callback<SampleSyncResponse>() {
+        mAPIService.DataSync("application/json", "Bearer " + getFromPrefs(AppConstants.ACCESS_Token), sampleEntity).enqueue(new Callback<SampleSyncResponse>() {
             @Override
             public void onResponse(Call<SampleSyncResponse> call, Response<SampleSyncResponse> response) {
 
                 d.dismiss();
-                if (response.body() != null){
-                    if (response.body().getSuccess()){
-                        Toast.makeText(SampleListActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
+                if (response.body() != null) {
+                    if (response.body().getSuccess()) {
+                        Toast.makeText(SampleListActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
 
                         sampleListViewModel.deleteSample(sampleEntity);
 
                         getList();
-                    }else {
-                        Toast.makeText(SampleListActivity.this,response.body().getMessage(),Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SampleListActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -226,9 +226,8 @@ public class SampleListActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onFailure(Call<SampleSyncResponse> call, Throwable t) {
                 d.dismiss();
-                Toast.makeText(SampleListActivity.this,"Sync failed",Toast.LENGTH_LONG).show();
+                Toast.makeText(SampleListActivity.this, "Sync failed", Toast.LENGTH_LONG).show();
             }
         });
-
+     }
     }
-}

@@ -164,8 +164,6 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sampleEntityView = new SampleEntity();
-
         oncreate = true;
 
         HomeActivity activity = (HomeActivity) getActivity();
@@ -174,6 +172,16 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         click_type = activity.getClick_event();
 
         SampleViewData(sample_id);
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        oncreate = false;
+
     }
 
     @Override
@@ -184,6 +192,7 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
         ButterKnife.bind(this, view);
 
+        sampleEntityView = new SampleEntity();
 
 
         iView_back.setOnClickListener(new View.OnClickListener() {
@@ -284,14 +293,19 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                 if (validateCheck(radio_status)){
                     if (radio_status.equalsIgnoreCase("No")){
                         getActivity().finish();
+
+                        saveSample();
                     }else {
+
+                        saveSample();
+
                         CollectionStage_second stage_second = new CollectionStage_second();
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
                         bundle.putInt("local_id",sample_id);
                         bundle.putString("click_type",click_type);
                         stage_second.setArguments(bundle);
-                        ft.replace(R.id.frame_layout,stage_second,"newFragment");
+                        ft.add(R.id.frame_layout,stage_second,"newFragment");
                         ft.addToBackStack("my_fragment");
                         ft.commit();
                     }
@@ -344,6 +358,7 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         return view;
     }
 
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -367,6 +382,13 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
 
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+
+    }
 
     private void saveSample(){
         sampleEntityView.setLocationname(ab_location);
@@ -489,9 +511,9 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
                        }else {
                            Add_FishDialog();
                        }
+                   }else {
+                       oncreate = true;
                    }
-
-
                }
                try {
                    ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.colorDarkGrey));
@@ -752,12 +774,6 @@ public class CollectionStage_first extends Fragment implements AdapterView.OnIte
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        saveSample();
-    }
 
 
 
